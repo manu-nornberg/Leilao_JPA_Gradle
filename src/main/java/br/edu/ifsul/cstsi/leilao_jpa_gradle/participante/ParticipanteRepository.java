@@ -13,5 +13,8 @@ public interface ParticipanteRepository extends JpaRepository<Participante,Long>
     @Query(value = "SELECT p FROM Participante p WHERE p.nome ilike ?1")
     List<Participante> findByNome(String nome);
 
+    @Query(value = "SELECT p FROM Participante p WHERE p.nome like ?1 and p.senha like ?2 and p.status = true")
+    Participante findByLogin(String login, String senha);
+
 
 }

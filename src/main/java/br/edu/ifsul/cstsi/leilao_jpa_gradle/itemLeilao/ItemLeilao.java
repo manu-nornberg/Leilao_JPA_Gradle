@@ -27,7 +27,7 @@ public class ItemLeilao {
     private String descricao;
     @Basic
     @Column(name = "lance_min")
-    private BigDecimal lanceMin;
+    private Double lanceMin;
     @Basic
     @Column(name = "caminho_foto")
     private String caminhoFoto;
@@ -42,14 +42,14 @@ public class ItemLeilao {
 
     @Override
     public String toString() {
-        return "ItemLeilao{" +
+        return "\nItemLeilao{" +
                 "id=" + id +
                 ", titulo='" + titulo + '\'' +
                 ", descricao='" + descricao + '\'' +
                 ", lanceMin=" + lanceMin +
                 ", caminhoFoto='" + caminhoFoto + '\'' +
-                ", arrematado=" + arrematado +
-                ", leilao=" + leilaoByCodLeilao +
+                ", arrematado=" + (arrematado ? "Não arrematado" : "Arrematado") +
+                ", leilao=" + leilaoByCodLeilao.getId() +
                 '}';
     }
 }

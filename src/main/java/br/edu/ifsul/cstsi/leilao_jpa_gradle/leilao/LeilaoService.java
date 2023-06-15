@@ -25,6 +25,11 @@ public class LeilaoService {
         return rep.findAll();
     }
 
+    public List<Leilao> getAllLeiloesTrue() {
+        return rep.findAllTrue();
+    }
+
+
     public Leilao insert(Leilao leilao) {
         Assert.isNull(leilao.getId(), "Erro!!!");
         return rep.save(leilao);

@@ -1,10 +1,12 @@
 package br.edu.ifsul.cstsi.leilao_jpa_gradle.participante;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.parser.Part;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,7 +25,16 @@ public class ParticipanteService {
     }
 
     public List<Participante> getParticipanteByNome(String nome) {
+
         return new ArrayList<>(rep.findByNome(nome + "%"));
+    }
+
+    public Participante getParticipanteByLogin(String login, String senha) {
+        Optional<Participante> opt = Optional.ofNullable(rep.findByLogin(login, senha));
+        if (opt.isPresent()) {
+            return opt.get();
+        }
+        return null;
     }
 
     public List<Participante>  getParticipanteAll() {

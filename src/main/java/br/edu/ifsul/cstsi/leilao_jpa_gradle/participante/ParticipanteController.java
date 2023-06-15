@@ -9,7 +9,7 @@ import java.util.Scanner;
 @Controller
 public class ParticipanteController {
     private static final Scanner input = new Scanner(System.in); //inserção de texto
-    private static ParticipanteService ParticipanteService; //service
+    public static ParticipanteService ParticipanteService; //service
 
     //injeção de dependencia
     public ParticipanteController(ParticipanteService participanteService) {
