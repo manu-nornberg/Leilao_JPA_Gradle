@@ -21,26 +21,28 @@ public class HomeController {
         do {
             System.out.println("\n====== Bem vindo =======");
             System.out.println("""
-                    1. Dar lance
-                    2. Manter leilões
-                    3. Manter itens 
-                    4. Manter participantes
-                    5. Criar leilao
+                    1. Criar leilao
+                    2. Dar lance
+                    3. Manter leilões
+                    4. Manter itens 
+                    5. Manter participante 
                     6. Finalizar leilao
                     0. Sair\s""");
             opcao = input.nextInt();
             input.nextLine();
 
             switch (opcao) {
-                case 1 -> LanceController.main(null);
-                case 2 -> LeilaoController.main(null);
-                case 3 -> ItemLeilaoController.main(null);
-                case 4 -> ParticipanteController.main(null);
-                case 5 -> CriarLeilaoController.main(null);
+                case 1 -> CriarLeilaoController.main(null);
+                case 2 -> LanceController.main(null);
+                case 3 -> LeilaoController.main(null);
+                case 4 -> ItemLeilaoController.main(null);
+                case 5 -> ParticipanteController.main(null);
                 case 6 -> FinalizarLeilaoController.main(null);
+                case 0 -> System.out.println("====== FIM ======");
             }
-        } while (opcao != 0);
-        System.out.println("====== FIM ======");
+
+        } while (opcao < 0 || opcao > 6);
+
         input.close();
     }
 

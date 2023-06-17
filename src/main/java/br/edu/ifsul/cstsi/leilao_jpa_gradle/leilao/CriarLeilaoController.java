@@ -1,11 +1,10 @@
 package br.edu.ifsul.cstsi.leilao_jpa_gradle.leilao;
 
+import br.edu.ifsul.cstsi.leilao_jpa_gradle.HomeController;
 import br.edu.ifsul.cstsi.leilao_jpa_gradle.itemLeilao.ItemLeilao;
 import br.edu.ifsul.cstsi.leilao_jpa_gradle.itemLeilao.ItemLeilaoService;
-
 import org.springframework.stereotype.Controller;
 
-import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -29,19 +28,17 @@ public class CriarLeilaoController {
         Leilao leilao = new Leilao();
         List<ItemLeilao> itens = new ArrayList<>();
         int add = 0;
-        LocalDate datain = LocalDate.now();
-        leilao.setDtInicio(Date.valueOf(datain));
-        leilao.setDtFinal(Date.valueOf(datain));
-        LocalTime horain = LocalTime.now();
-        LocalTime horafim = horain.plusHours(1);
-        leilao.setHrInicio(Time.valueOf(horain));
-        leilao.setHrFinal(Time.valueOf(horafim));
+        System.out.println("\nCriando leilao ....");
+        leilao.setDtInicio(LocalDate.now());
+        leilao.setDtFinal(LocalDate.now());
+        LocalTime hora = LocalTime.now();
+        leilao.setHrInicio(Time.valueOf(hora));
+        leilao.setHrFinal(Time.valueOf(hora.plusHours(1)));
         leilao.setStatus(true);
-
 
         do {
             ItemLeilao itemLeilao = new ItemLeilao();
-            System.out.println("Insira o titulo: ");
+            System.out.println("Insira o titulo do item para cadastrar: ");
             itemLeilao.setTitulo(input.nextLine());
             System.out.println("Insira o Caminho da foto: ");
             itemLeilao.setCaminhoFoto(input.nextLine());
@@ -64,6 +61,7 @@ public class CriarLeilaoController {
         add = input.nextInt();
         input.nextLine();
 
+
         if(add == 1){
             System.out.println("Leilao criado: "
                 + leilaoService.insert(leilao)
@@ -74,10 +72,12 @@ public class CriarLeilaoController {
                     + itemLeilaoService.insertItem(i)
                 );
             });
+            HomeController.main(null);
         }
-
-
-
+        if(add == 2){
+            System.out.println("\nLEILAO CANCELADO");
+            HomeController.main(null);
+        }
 
     }
 

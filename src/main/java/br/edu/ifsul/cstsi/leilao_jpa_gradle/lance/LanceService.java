@@ -10,7 +10,6 @@ import org.springframework.util.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class LanceService {
@@ -18,16 +17,23 @@ public class LanceService {
     @Autowired
     private LanceRepository rep;
 
-
+    //busca todos os lances
     public List<Lance> getLanceAll() {
         return rep.findAll();
     }
 
+    //busca os lances pelo id do item
     public List<Lance> getLanceAllByItem(ItemLeilao id) {
-        return new ArrayList<>(rep.getLanceAllByItem(id));
+        ArrayList<Lance> lances = new ArrayList<>(rep.getLanceAllByItem(id));
+        return lances;
     }
 
+    //busca os lances pelo id do participante
+    public List<Lance> getLanceAllByPart(Participante id) {
+        return new ArrayList<>(rep.getLanceAllByPart(id));
+    }
 
+    //inserir lance
     public Lance insertLance(Lance lance) {
         Assert.isNull(lance.getId(), "Erro !!!");
         return rep.save(lance);

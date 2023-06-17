@@ -5,9 +5,12 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.cglib.core.Local;
 
-import java.sql.Date;
 import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 
 @Entity
@@ -20,13 +23,13 @@ public class Leilao {
     private Long id;
     @Basic
     @Column(name = "dt_inicio")
-    private Date dtInicio;
+    private LocalDate dtInicio;
     @Basic
     @Column(name = "hr_inicio")
     private Time hrInicio;
     @Basic
     @Column(name = "dt_final")
-    private Date dtFinal;
+    private LocalDate dtFinal;
     @Basic
     @Column(name = "hr_final")
     private Time hrFinal;
@@ -44,13 +47,13 @@ public class Leilao {
     //toString
     @Override
     public String toString() {
-        return "\nLeilao{" +
-                "id=" + id +
-                ", dtInicio=" + dtInicio +
-                ", hrInicio=" + hrInicio +
-                ", dtFinal=" + dtFinal +
-                ", hrFinal=" + hrFinal +
-                ", status=" + status +
+        return "\nLeilao {" +
+                "id= " + id +
+                " || dtInicio= " + DateTimeFormatter.ofPattern("dd/MM/yyyy").format(dtInicio) +
+                " || dtFinal= " + DateTimeFormatter.ofPattern("dd/MM/yyyy").format(dtFinal) +
+                " || hrInicio= " + hrInicio +
+                " || hrFinal= " + hrFinal +
+                " || status= " + (status ? "em andamento" : "terminado") +
                 '}';
     }
 }

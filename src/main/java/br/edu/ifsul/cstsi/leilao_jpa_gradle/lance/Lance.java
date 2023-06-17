@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.sql.Time;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Entity
 @Data
@@ -24,7 +25,7 @@ public class Lance {
     private Double valorLance;
     @Basic
     @Column(name = "hr_lance")
-    private LocalDateTime hrLance;
+    private Time hrLance;
     @ManyToOne
     @JoinColumn(name = "id_part", referencedColumnName = "id")
     private Participante participanteByIdPart;
@@ -36,10 +37,10 @@ public class Lance {
     public String toString() {
         return "\nLance{" +
                 "id=" + id +
-                ", valorLance=" + valorLance +
-                ", hrLance=" + hrLance +
-                ", participanteByIdPart=" + participanteByIdPart +
-                ", itemLeilaoByCodItem=" + itemLeilaoByCodItem +
+                " || valorLance=" + valorLance +
+                " || hrLance=" + hrLance +
+                " || participanteByIdPart=" + participanteByIdPart +
+                " || itemLeilaoByCodItem=" + itemLeilaoByCodItem +
                 '}';
     }
 }

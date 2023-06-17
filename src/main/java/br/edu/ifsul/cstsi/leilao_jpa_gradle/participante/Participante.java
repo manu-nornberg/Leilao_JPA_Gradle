@@ -6,8 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
+
 
 @Entity
 @Data
@@ -40,20 +40,20 @@ public class Participante {
     @Column(name = "status")
     private Boolean status;
     @OneToMany(mappedBy = "participanteByIdPart")
-
-    private List<Lance> lances = new ArrayList<>();
+    private Collection<Lance> LanceByCodParticipante;
 
     //toString sobescrito
     @Override
     public String toString() {
         return "\nParticipante= " +
                 "id=" + id +
-                ", nome='" + nome + '\'' +
-                ", login='" + login + '\'' +
-                ", senha='" + senha + '\'' +
-                ", email='" + email + '\'' +
-                ", endereco='" + endereco + '\'' +
-                ", telefone='" + telefone + '\'' +
-                ", status=" + (status ? "ativo" : "desativado") ;
+                " || nome='" + nome + '\'' +
+                " || login='" + login + '\'' +
+                " || senha='" + senha + '\'' +
+                " || email='" + email + '\'' +
+                " || endereco='" + endereco + '\'' +
+                " || telefone='" + telefone + '\'' +
+                " || status= " + (status ? "ativo" : "desativado") +
+                "}";
     }
 }

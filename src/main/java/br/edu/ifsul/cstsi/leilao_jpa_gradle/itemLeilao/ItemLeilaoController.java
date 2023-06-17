@@ -57,6 +57,14 @@ public class ItemLeilaoController {
         int opcao = 0;
         ItemLeilao itemLeilao = null;
         do {
+            //pegar o leilao para alterar o item
+            System.out.println("Qual o id do leilao que deseja alterar o item? ");
+            Long l = input.nextLong();
+            input.nextLine();
+            Leilao leilao = leilaoService.getLeilaoById(l);
+            List<ItemLeilao> itens = itemLeilaoService.getItemByIdLeilao(leilao);
+            System.out.println(itens);
+            //pegar o item
             System.out.println("\n Digite o id do item para alterar(0 pra sair) ");
             long id = input.nextLong();
             input.nextLine();
@@ -112,6 +120,7 @@ public class ItemLeilaoController {
     private static void selectAll() {
         List<ItemLeilao> itens = itemLeilaoService.todosItens();
         System.out.println("\n Lista de participante do leilao: " + itens);
+        ItemLeilaoController.main(null);
 
     }
 
@@ -123,6 +132,7 @@ public class ItemLeilaoController {
         Leilao leilao = leilaoService.getLeilaoById(id);
         List<ItemLeilao> itens = itemLeilaoService.getItemByIdLeilao(leilao);
         System.out.println(itens);
+        ItemLeilaoController.main(null);
     }
 
 

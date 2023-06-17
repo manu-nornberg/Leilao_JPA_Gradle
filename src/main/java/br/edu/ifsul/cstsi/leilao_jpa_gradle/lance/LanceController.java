@@ -1,18 +1,17 @@
 package br.edu.ifsul.cstsi.leilao_jpa_gradle.lance;
 
+import br.edu.ifsul.cstsi.leilao_jpa_gradle.HomeController;
 import br.edu.ifsul.cstsi.leilao_jpa_gradle.itemLeilao.ItemLeilao;
-import br.edu.ifsul.cstsi.leilao_jpa_gradle.itemLeilao.ItemLeilaoController;
 import br.edu.ifsul.cstsi.leilao_jpa_gradle.itemLeilao.ItemLeilaoService;
 import br.edu.ifsul.cstsi.leilao_jpa_gradle.leilao.Leilao;
 import br.edu.ifsul.cstsi.leilao_jpa_gradle.leilao.LeilaoController;
 import br.edu.ifsul.cstsi.leilao_jpa_gradle.leilao.LeilaoService;
 import br.edu.ifsul.cstsi.leilao_jpa_gradle.participante.Participante;
-import br.edu.ifsul.cstsi.leilao_jpa_gradle.participante.ParticipanteController;
 import br.edu.ifsul.cstsi.leilao_jpa_gradle.participante.ParticipanteService;
 import org.springframework.stereotype.Controller;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.sql.Time;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -41,6 +40,10 @@ public class LanceController {
         //listando os leiloes
         System.out.println("\nPara qual leilao deseja fazer lances? ");
         List<Leilao> leilaos = leilaoService.getAllLeiloesTrue();
+        if(leilaos==null){
+            System.out.println("Não há leiloes em andamento ");
+            HomeController.main(null);
+        }
         System.out.println(leilaos);
         Long id = input.nextLong();
         input.nextLine();
@@ -48,13 +51,17 @@ public class LanceController {
         List<ItemLeilao> itens = itemLeilaoService.getItemByIdLeilao(leilao);
         List<ItemLeilao> itensliberados = new ArrayList<>();
 
-        //mostrando o item do leilao
+        //mostrando os itens dos leiloes
         itens.forEach(i ->{
-            if(i.getArrematado() == true){
+            if(i.getArrematado() == false){
+//                System.out.println("item arrematado" + i);
+            }else {
                 itensliberados.add(i);
+//                System.out.println("item nao arrematado" + i);
             }
         });
-        System.out.println("Itens do leilao: " + itens);
+
+        System.out.println("Itens do leilao: " + itensliberados);
 
         //selecionar participante
         System.out.println("Quais participantes vao coisas o coisado? ");
@@ -84,7 +91,7 @@ public class LanceController {
 
         //lance
         do{
-            System.out.println("\nQuem deseja dar? ");
+            System.out.println("\nQuem deseja dar o lance? ");
             Long idp = input.nextLong();
             input.nextLine();
             for (Participante p : participantes) {
@@ -103,10 +110,12 @@ public class LanceController {
                             lance = input.nextDouble();
                             input.nextLine();
                             if (lance < i.getLanceMin()) {
-                                System.out.println("\nLance não aceito ? ");
+                                System.out.println("\nLance não aceito");
                             }else{
+                                //inserir lance
                                 Lance lance1 = new Lance();
-                                lance1.setHrLance(LocalDateTime.now());
+                                LocalTime hora = LocalTime.now();
+                                lance1.setHrLance(Time.valueOf(hora));
                                 lance1.setValorLance(lance);
                                 lance1.setItemLeilaoByCodItem(itemachado);
                                 lance1.setParticipanteByIdPart(pachado);
@@ -115,7 +124,6 @@ public class LanceController {
                         }
                     }
                 }
-                System.out.println("Não achei participante blablabla");
             }
 
             System.out.println("\nDeseja fazer outro? 1-sim 2-nao");
@@ -123,6 +131,8 @@ public class LanceController {
             input.nextLine();
 
         }while(op!=2);
+
+        HomeController.main(null);
 
     }
 

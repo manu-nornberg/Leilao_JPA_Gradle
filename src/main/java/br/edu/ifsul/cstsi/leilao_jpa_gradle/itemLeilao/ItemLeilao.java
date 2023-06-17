@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
 import java.util.Collection;
 
 @Entity
@@ -44,12 +43,12 @@ public class ItemLeilao {
     public String toString() {
         return "\nItemLeilao{" +
                 "id=" + id +
-                ", titulo='" + titulo + '\'' +
-                ", descricao='" + descricao + '\'' +
-                ", lanceMin=" + lanceMin +
-                ", caminhoFoto='" + caminhoFoto + '\'' +
-                ", arrematado=" + (arrematado ? "Não arrematado" : "Arrematado") +
-                ", leilao=" + leilaoByCodLeilao.getId() +
+                " || titulo='" + titulo + '\'' +
+                " || descricao='" + descricao + '\'' +
+                " || lance minimo=" + lanceMin +
+                " || foto='" + caminhoFoto + '\'' +
+                " || arrematado=" + (arrematado ? "Não arrematado" : "Arrematado") +
+                " || Id do leilao=" + leilaoByCodLeilao.getId() +
                 '}';
     }
 }
