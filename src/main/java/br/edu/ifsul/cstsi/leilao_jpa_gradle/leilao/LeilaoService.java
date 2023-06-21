@@ -72,6 +72,7 @@ public class LeilaoService {
         Optional<Leilao> opt = rep.findByID(leilao.getId());
         if(opt.isPresent()){
             Leilao lt = opt.get();
+            lt.setStatus(leilao.getStatus());
             lt.setHrFinal(leilao.getHrFinal());
             rep.save(lt);
             return lt;

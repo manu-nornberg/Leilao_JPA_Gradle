@@ -34,7 +34,7 @@ public class LeilaoController {
                     1. Listar leiloes
                     2. Buscar por id
                     3. Adicionar mais itens
-                    4. Alterar a hora de fim
+                    4. Terminar leilao antes da hora
                     0. Voltar para página anterior\s""");
             opcao = input.nextInt();
             input.nextLine();
@@ -133,27 +133,18 @@ public class LeilaoController {
             System.out.println("\nNão há registro de leiloes ativos com esse id: " + id);
             LeilaoController.main(null);
         } else {
-                System.out.println("\nDeseja alterar para menos ou mais? 1-menos 2-mais ");
+                System.out.println("\nDeseja terminar? 1-sim 2- nao");
                 int op = input.nextInt();
                 input.nextLine();
                 if(op == 1){
-                    System.out.println("Quantos minutos? ");
-                    Long h = input.nextLong();
-                    input.nextLine();
-                    LocalTime hh = LocalTime.now();
-                    leilao.setHrFinal(Time.valueOf(hh.minusMinutes(h)));
+                    leilao.setStatus(false);
+                    leilao.setHrFinal(Time.valueOf(LocalTime.now()));
                     System.out.println("Horario alterado! " + leilaoService.updateHora(leilao));
                     atualizarStatus();
+                    System.out.println(leilao);
                     LeilaoController.main(null);
                 }
                 if(op == 2){
-                    System.out.println("Quantos minutos? ");
-                    Long h = input.nextLong();
-                    input.nextLine();
-                    LocalTime hh = LocalTime.now();
-                    leilao.setHrFinal(Time.valueOf(hh.plusMinutes(h)));
-                    System.out.println("Horario alterado! " + leilaoService.updateHora(leilao));
-                    atualizarStatus();
                     LeilaoController.main(null);
                 }
             }
